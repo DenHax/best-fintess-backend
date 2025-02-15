@@ -1,0 +1,29 @@
+services:
+  web:
+    container_name: fit-php
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - db
+
+  db:
+    container_name: fit-psql
+    image: postgres:17.0
+    restart: always
+    environment:
+      - "POSTGRES_USER=fit-admin"
+      - "POSTGRES_DB=fitness"
+      - "POSTGRES_PASSWORD=p4ssw0rd"
+    ports:
+      - "5441:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
+
+volumes:
+  web:
+  db:
