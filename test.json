@@ -1,0 +1,16 @@
+[
+  {
+    "firstname": "Илья",
+    "surname": "Попадьин",
+    "email": "ilya53@gmail.com",
+    "password": "password",
+    "isTrainer": false
+  },
+  {
+    "firstname": "Иван",
+    "surname": "Толкачев",
+    "email": "tolcach@mail.ru",
+    "password": "qwe321",
+    "isTrainer": true
+  }
+]
