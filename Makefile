@@ -7,6 +7,9 @@ compose-create-env:
 compose-run:
 	. ./scripts/compose-run.sh
 
+compose-build:
+	. ./scripts/compose-build.sh
+
 compose-down:
 	. ./scripts/compose-down.sh
 
