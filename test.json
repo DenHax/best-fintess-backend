@@ -1,16 +1,47 @@
 [
   {
-    "firstname": "Илья",
-    "surname": "Попадьин",
-    "email": "ilya53@gmail.com",
-    "password": "password",
+    "surname": "Попочов",
+    "firstname": "Иван",
+    "age": "23",
+    "gender": "male",
+    "height": "176",
+    "weight": "86",
+    "phone": "+79009009090",
+    "password": "P4ssw0rd",
     "isTrainer": false
   },
   {
-    "firstname": "Иван",
-    "surname": "Толкачев",
-    "email": "tolcach@mail.ru",
-    "password": "qwe321",
+    "surname": "Толкадьин",
+    "firstname": "Илья",
+    "age": "32",
+    "gender": "male",
+    "height": "196",
+    "weight": "186",
+    "phone": "+79529521212",
+    "password": "123Ewq",
+    "isTrainer": false
+  },
+  {
+    "surname": "den",
+    "firstname": "hax",
+    "age": "43",
+    "gender": "female",
+    "height": "200",
+    "weight": "100",
+    "phone": "+70090090909",
+    "password": "zxcQWE123",
+    "isTrainer": false,
+    "isAdmin": true
+  },
+  {
+    "surname": "главный",
+    "firstname": "саша",
+    "age": "25",
+    "gender": "male",
+    "height": "180",
+    "weight": "90",
+    "phone": "89985342312",
+    "password": "asdfGHJkl1",
     "isTrainer": true
   }
 ]
