@@ -1,7 +1,7 @@
-/src/upload/*
+/upload/*
 # CakePHP 3
 
-/vendor/*
+/src/vendor/*
 /config/app.php
 
 /tmp/cache/models/*
@@ -26,4 +26,8 @@
 /vendors/*
 
 .env
+.env-*
+.env_*
 config.ini
+
+/.direnv
