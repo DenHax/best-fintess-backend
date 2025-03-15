@@ -153,7 +153,7 @@ class UserController
                     'user_weight' => $user->getUserWeight(),
                     'user_phone' => $user->getUserPhone(),
                     'user_avatar_path' => $user->getUserAvatarPath(),
-                    'is_trainer' => $user->getUserIsTrainer(),
+                    'is_trainer' => $user->getUserIsTrainer() === true ? '✔' : '✖',
                 ];
             }, $users);
 
