@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\User;
+namespace App\Domain\User;
 
 class User
 {
@@ -57,7 +57,7 @@ class User
         return $this->user_firstname;
     }
 
-    public function getuserGender(): string
+    public function getUserGender(): string
     {
         return $this->user_gender;
     }
