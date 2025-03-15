@@ -21,6 +21,9 @@ class Router
         $method = $_SERVER['REQUEST_METHOD'];
 
         $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        if (strpos($path, '/api') === 0) {
+            $path = substr($path, 4);
+        }
 
         if (isset($this->routes[$method][$path])) {
             call_user_func($this->routes[$method][$path]);
