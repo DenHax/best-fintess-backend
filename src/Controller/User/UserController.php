@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\User;
 
-use App\Core\ContentLoader\Loader;
+use App\Helper\ContentLoader;
 use App\Domain\User\User;
 use App\Repository\User\UserRepo;
 use Exception;
@@ -104,7 +104,7 @@ class UserController
             echo json_encode(['message' => 'No file uploaded.']);
         }
 
-        $loader = new Loader();
+        $loader = new ContentLoader();
         $avatar_path = $loader->uploadImage($avatar, 'avatar');
 
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
