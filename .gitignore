@@ -21,7 +21,7 @@
 # CakePHP 2
 
 /src/utils/*
-/src/storage/upload
+/src/storage/*
 /src/Config/core.php
 /src/Config/database.php
 /vendors/*
