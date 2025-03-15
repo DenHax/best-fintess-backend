@@ -1,9 +1,9 @@
 <?php
 
-use App\Controller\UserController;
+use App\Controller\User\UserController;
+use App\Repository\User\UserRepo;
 use App\Core\Config;
 use App\Core\Router;
-use App\Repository\User\UserRepo;
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
