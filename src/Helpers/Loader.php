@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Core\ContentLoader;
+namespace App\Helper;
 
-class Loader
+class ContentLoader
 {
     /** Get file that will be upload to /upload/:uploadType directory with random filename and return string to this file */
     public function uploadImage($avatar, $uploadType): string | null
