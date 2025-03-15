@@ -1,0 +1,9 @@
+/scripts
+/.git
+.gitignore
+compose.yaml
+Dockerfile
+flake.*
+Makefile
+REAMDE.md 
+test.json

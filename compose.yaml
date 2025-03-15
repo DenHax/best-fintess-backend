@@ -2,14 +2,16 @@ services:
   web:
     container_name: fit-php
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: docker
+      dockerfile: app.Dockerfile
     ports:
       - "8080:80"
     volumes:
       - ./src:/var/www/html
     depends_on:
       - db
+    networks:
+      - app
 
   db:
     container_name: fit-psql
@@ -23,6 +25,27 @@ services:
       - "5441:5432"
     volumes:
       - db:/var/lib/postgresql/data
+    networks:
+      - app
+
+  composer:
+    build:
+      context: docker
+      dockerfile: composer.Dockerfile
+    volumes:
+      - ./src:/var/www/html
+
+  artisan:
+    entrypoint: ["php", "/var/www/html/artisan"]
+    build:
+      context: docker
+      dockerfile: app.Dockerfile
+    volumes:
+      - ./src:/var/www/html
+
+networks:
+  app:
+    driver: bridge
 
 volumes:
   web:
