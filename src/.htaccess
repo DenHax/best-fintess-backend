@@ -1,3 +1,3 @@
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*)$ index.php/api?q=$1 [L,QSA]
+RewriteRule ^(.*)$ public/index.php?q=$1 [L,QSA]
