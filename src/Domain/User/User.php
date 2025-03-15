@@ -13,7 +13,7 @@ class User
     private int $user_weight;
     private bool $user_is_trainer;
     private string $user_phone;
-    private string $user_hash_password;
+    private ?string $user_hash_password;
     private string $user_avatar_path;
 
     public function __construct(
@@ -26,7 +26,7 @@ class User
         int $user_weight,
         bool $user_is_trainer,
         string $user_phone,
-        string $user_hash_password,
+        ?string $user_hash_password,
         string $user_avatar_path
     ) {
         $this->user_uuid = $user_uuid;
