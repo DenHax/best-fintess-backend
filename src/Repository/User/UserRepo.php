@@ -81,4 +81,45 @@ class UserRepo
 
         return $user->getUserUuid();
     }
+
+    public function getAllUsers(): array
+    {
+        $stmt = $this->pdo->query("SELECT
+            c.client_uuid,
+            c.client_surname,
+            c.client_firstname,
+            c.client_gender,
+            c.client_age,
+            c.client_height,
+            c.client_weight,
+            c.client_phone,
+            c.client_avatar_path,
+          CASE
+            WHEN cr.role_id = 1 THEN true
+            ELSE false
+          END AS is_trainer
+          FROM client AS c LEFT JOIN client_role AS cr 
+            ON c.client_uuid = cr.client_id AND cr.role_id = 1;");
+        $users = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $user = new User(
+                $row['client_uuid'],
+                $row['client_surname'],
+                $row['client_firstname'],
+                $row['client_gender'],
+                $row['client_age'],
+                $row['client_height'],
+                $row['client_weight'],
+                $row['is_trainer'],
+                $row['client_phone'],
+                null,
+                $row['client_avatar_path']
+            );
+
+            $users[] = $user;
+        }
+
+        return $users;
+    }
+
 }
