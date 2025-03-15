@@ -52,10 +52,3 @@ class Config
         return $this->config;
     }
 }
-
-
-/*$config = parse_ini_file('../config.ini', true);*/
-/*$dbHost = $config['database']['DB_HOST'];*/
-/*$dbUsername = $config['database']['DB_USER'];*/
-/*$dbPassword = $config['database']['DB_PASS'];*/
-/*$dbName = $config['database']['DB_NAME'];*/
