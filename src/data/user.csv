@@ -1,5 +1,0 @@
-surname,firstname,age,gender,weight,height,phone,hashedPassword,isTrainer,avatarPath
-den,hax,43,female,100,200,+70090090909,$2y$10$kfCtjQQBEK20aR7KFu/BQuLgeksgk9MWXeUmaQ3klY8oLLthSnH.q,false,./upload/avatar/67b50d15f189c.jpg
-главный,саша,52,male,90,180,89985342312,$2y$10$Yp3iVxzEYvYdCbEwM1GdHu//UiWHq7Jk0/vQIHfVDcLgK/wFQh.mm,true,./upload/avatar/67b50ea97c997.png
-Попочов,Иван,25,male,85,185,+79431234321,$2y$10$Ojf9V9wQhYdLkUxH/GEDpekuJ2Oa3VEVnZB9NPfOlh2WOTpFNMOHy,false,./upload/avatar/default.jpg
-Толкадьин,Илья,19,male,89,178,+79529521212,$2y$10$E03fLmvRZpCRvXKC.83IY.U4xKTlhkOYjesfdTR5oVmAYHrfr8oH6,false,./upload/avatar/67b514d10a0c5.png
