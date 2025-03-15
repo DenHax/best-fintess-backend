@@ -11,13 +11,13 @@ class Config
     public function __construct(string $configPath)
     {
         if (!file_exists($configPath)) {
-            throw new Exception("Файл конфигурации не найден: {$configPath}");
+            throw new Exception("File {$configPath} doesn't exist");
         }
 
         $this->config = parse_ini_file($configPath, true);
 
         if ($this->config === false) {
-            throw new Exception("Не удалось загрузить конфигурацию из файла: {$configPath}");
+            throw new Exception("Error to load config from {$configPath}");
         }
     }
 
@@ -26,13 +26,13 @@ class Config
     {
         $parts = explode('.', $key);
         if (count($parts) !== 2) {
-            throw new Exception("Ключ должен быть в формате 'section.key'");
+            throw new Exception("Key must be in format 'section.key'");
         }
 
         [$section, $param] = $parts;
 
         if (!isset($this->config[$section][$param])) {
-            throw new Exception("Ключ '{$key}' не найден в конфигурации");
+            throw new Exception("Key '{$key}' not found");
         }
 
         return $this->config[$section][$param];
@@ -41,7 +41,7 @@ class Config
     public function getSection(string $section): array
     {
         if (!isset($this->config[$section])) {
-            throw new Exception("Секция '{$section}' не найдена в конфигурации");
+            throw new Exception("Section '{$section}' not found");
         }
 
         return $this->config[$section];
