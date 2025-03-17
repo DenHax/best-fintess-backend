@@ -1,3 +1,15 @@
 RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
+
+<FilesMatch "\.(env|ini|htaccess|log|sql)$">
+    Require all denied
+</FilesMatch>
+
+<FilesMatch "(^config\.ini|\.env$)">
+    Require all denied
+</FilesMatch>
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
 RewriteRule ^(.*)$ public/index.php?q=$1 [L,QSA]
