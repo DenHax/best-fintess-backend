@@ -32,7 +32,7 @@ class UserController
         $age = (int)($_POST['age'] ?? 0);
         $weight = (int)($_POST['weight'] ?? 0);
         $height = (int)($_POST['height'] ?? 0);
-        $is_trainer = $_POST['isTrainer'] === 'true' ? true : false;
+        $is_trainer = $_POST['isTrainer'] ?? '';
         $phone = $_POST['phone'] ?? '';
         $password = $_POST['password'] ?? '';
         $repeat_password = $_POST['repeat_password'] ?? '';
@@ -126,7 +126,7 @@ class UserController
                 $avatar_path
             );
 
-            $newUserUuid = $this->userRepo->addUser($newUser);
+            $newUserUuid = $this->userRepo->createUser($newUser);
 
             if ($newUserUuid !== null) {
                 $response = [
