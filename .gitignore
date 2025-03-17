@@ -32,4 +32,4 @@
 config.ini
 
 /.direnv
-/test.json
+test.json
