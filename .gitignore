@@ -30,6 +30,6 @@
 .env-*
 .env_*
 config.ini
+test.json
 
 /.direnv
-test.json

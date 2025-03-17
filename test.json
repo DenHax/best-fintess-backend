@@ -22,18 +22,6 @@
     "isTrainer": false
   },
   {
-    "surname": "den",
-    "firstname": "hax",
-    "age": "43",
-    "gender": "female",
-    "height": "200",
-    "weight": "100",
-    "phone": "+70090090909",
-    "password": "zxcQWE123",
-    "isTrainer": false,
-    "isAdmin": true
-  },
-  {
     "surname": "главный",
     "firstname": "саша",
     "age": "25",
@@ -42,6 +30,17 @@
     "weight": "90",
     "phone": "89985342312",
     "password": "asdfGHJkl1",
+    "isTrainer": true
+  },
+  {
+    "surname": "Ухин",
+    "firstname": "Дмитрий",
+    "age": "28",
+    "gender": "male",
+    "height": "175",
+    "weight": "65",
+    "phone": "84315743677",
+    "password": "R0ck3tR4p",
     "isTrainer": true
   }
 ]
