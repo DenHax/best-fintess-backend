@@ -2,6 +2,7 @@
 
 namespace App\Controller\User;
 
+use App\Core\Request;
 use App\Helpers\ContentLoader;
 use App\Domain\User\User;
 use App\Repository\User\UserRepo;
@@ -26,6 +27,7 @@ class UserController
 
     public function handleUserRegistration()
     {
+        /*$userData = $request->getBodyParams();*/
         $surname = $_POST['surname'] ?? '';
         $firstname = $_POST['firstname'] ?? '';
         $gender = $_POST['gender'] ?? '';
@@ -146,10 +148,11 @@ class UserController
         }
     }
 
-    public function handleAllUsers()
+    public function handleAllUsers(Request $request)
     {
+        $filters = $request->getQueryParams();
         try {
-            $users = $this->userRepo->getAllUsers();
+            $users = $this->userRepo->getAllUsers($filters);
             $usersArray = array_map(function (User $user) {
                 return [
                     'user_uuid' => $user->getUserUuid(),
