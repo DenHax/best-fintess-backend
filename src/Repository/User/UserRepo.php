@@ -9,7 +9,9 @@ use PDO;
 class UserRepo
 {
     private PDO $pdo;
-
+    /**
+     * @param array<int,mixed> $db_conn_info
+     */
     public function __construct(array $db_conn_info)
     {
         $this->pdo = Database::connect($db_conn_info);
@@ -22,6 +24,7 @@ class UserRepo
 
     public function createUser(User $user): string
     {
+
         $stmt = $this->pdo->prepare("
             INSERT INTO client (
                 client_surname,
@@ -81,25 +84,77 @@ class UserRepo
 
         return $user->getUserUuid();
     }
-
-    public function getAllUsers(): array
+    /**
+     * @param array<int,mixed> $filters
+     * @return User[]
+     */
+    public function getAllUsers(array $filters = []): array
     {
-        $stmt = $this->pdo->query("SELECT
-            c.client_uuid,
-            c.client_surname,
-            c.client_firstname,
-            c.client_gender,
-            c.client_age,
-            c.client_height,
-            c.client_weight,
-            c.client_phone,
-            c.client_avatar_path,
-          CASE
-            WHEN cr.role_id = 1 THEN true
-            ELSE false
-          END AS is_trainer
-          FROM client AS c LEFT JOIN client_role AS cr 
-            ON c.client_uuid = cr.client_id AND cr.role_id = 1;");
+        $query = "
+            SELECT 
+                c.client_uuid,
+                c.client_surname,
+                c.client_firstname,
+                c.client_gender,
+                c.client_age,
+                c.client_height,
+                c.client_weight,
+                c.client_phone,
+                c.client_avatar_path,
+                EXISTS(
+                    SELECT 1 FROM client_role cr
+                    JOIN role r ON cr.role_id = r.role_id
+                    WHERE cr.client_id = c.client_uuid
+                    AND r.role_name = 'тренер'
+                ) as is_trainer
+            FROM client c
+        ";
+
+        $conditions = [];
+        $params = [];
+
+        if (isset($filters['is_trainer'])) {
+            $isTrainer = filter_var($filters['is_trainer'], FILTER_VALIDATE_BOOLEAN);
+
+            if ($isTrainer) {
+                $query .= " WHERE EXISTS(
+                SELECT 1 FROM client_role cr
+                JOIN role r ON cr.role_id = r.role_id
+                WHERE cr.client_id = c.client_uuid
+                AND r.role_name = 'тренер'
+            )";
+            } else {
+                $query .= " WHERE NOT EXISTS(
+                SELECT 1 FROM client_role cr
+                JOIN role r ON cr.role_id = r.role_id
+                WHERE cr.client_id = c.client_uuid
+                AND r.role_name = 'тренер'
+            )";
+            }
+        }
+
+        if (!empty($filters['gender'])) {
+            $conditions[] = "c.client_gender = :gender";
+            $params[':gender'] = $filters['gender'];
+        }
+
+        if (!empty($filters['age_min'])) {
+            $conditions[] = "c.client_age >= :age_min";
+            $params[':age_min'] = (int)$filters['age_min'];
+        }
+
+        if (!empty($conditions)) {
+            $query .= isset($filters['is_trainer']) ? " AND " : " WHERE ";
+            $query .= implode(" AND ", $conditions);
+        }
+        $stmt = $this->pdo->prepare($query);
+
+        foreach ($params as $key => $value) {
+            $stmt->bindValue($key, $value);
+        }
+
+        $stmt->execute();
+
         $users = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $user = new User(
@@ -115,7 +170,6 @@ class UserRepo
                 null,
                 $row['client_avatar_path']
             );
-
             $users[] = $user;
         }
 
