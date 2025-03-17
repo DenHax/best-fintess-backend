@@ -7,14 +7,15 @@ class Router
     private array $routes = [];
 
     /**
-     * @param callable(): mixed $callback
+     * @param callable(Request): mixed $callback
      */
     public function get(string $route, callable $callback): void
     {
         $this->routes['GET'][$route] = $callback;
     }
+
     /**
-     * @param callable(): mixed $callback
+     * @param callable(Request): mixed $callback
      */
     public function post(string $route, callable $callback): void
     {
@@ -23,15 +24,20 @@ class Router
 
     public function resolve(): void
     {
-        $method = $_SERVER['REQUEST_METHOD'];
-
-        $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        if (strpos($path, '/api') === 0) {
-            $path = substr($path, 4);
-        }
+        $request = new Request();
+        $method = $request->getMethod();
+        $path = $request->getPath();
 
         if (isset($this->routes[$method][$path])) {
-            call_user_func($this->routes[$method][$path]);
+            $callback = $this->routes[$method][$path];
+
+            if (is_array($callback)) {
+                $obj = $callback[0];
+                $methodName = $callback[1];
+                $obj->$methodName($request);
+            } else {
+                $callback($request);
+            }
         } else {
             http_response_code(404);
             echo "404 Not Found";
