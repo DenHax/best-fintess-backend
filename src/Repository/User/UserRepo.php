@@ -20,7 +20,7 @@ class UserRepo
         return $this->pdo;
     }
 
-    public function addUser(User $user): string
+    public function createUser(User $user): string
     {
         $stmt = $this->pdo->prepare("
             INSERT INTO client (
