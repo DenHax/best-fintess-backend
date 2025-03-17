@@ -43,6 +43,22 @@ services:
     volumes:
       - ./src:/var/www/html
 
+  pgadmin:
+    container_name: fit-pgadmin
+    image: dpage/pgadmin4:8.12
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@pgadmin.com
+      PGADMIN_DEFAULT_PASSWORD: p4ssw0rd
+      PGADMIN_LISTEN_PORT: 5050
+    ports:
+      - 15439:5050
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    depends_on:
+      - db
+    networks:
+      - app
+
 networks:
   app:
     driver: bridge
@@ -50,3 +66,4 @@ networks:
 volumes:
   web:
   db:
+  pgadmin:
