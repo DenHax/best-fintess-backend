@@ -1,16 +1,21 @@
 <?php
 
-namespace App\core;
+namespace App\Core;
 
 class Router
 {
     private array $routes = [];
 
+    /**
+     * @param callable(): mixed $callback
+     */
     public function get(string $route, callable $callback): void
     {
         $this->routes['GET'][$route] = $callback;
     }
-
+    /**
+     * @param callable(): mixed $callback
+     */
     public function post(string $route, callable $callback): void
     {
         $this->routes['POST'][$route] = $callback;
