@@ -2,7 +2,7 @@
 
 namespace App\Controller\User;
 
-use App\Helper\ContentLoader;
+use App\Helpers\ContentLoader;
 use App\Domain\User\User;
 use App\Repository\User\UserRepo;
 use Exception;
@@ -39,18 +39,21 @@ class UserController
 
         if ($this->char_validate($surname) || $this->char_validate($firstname)) {
             http_response_code(400);
+            error_log("has numeric");
             echo json_encode(['status' => 'failed', "error" => "Literal is numeric"]);
             exit;
         }
 
         if ($age < 8 || $age > 120) {
             http_response_code(400);
+            error_log("has numeric");
             echo json_encode(['status' => 'failed', "error" => "Incorrect age"]);
             exit;
         }
 
         if ($weight < 20 || $weight > 300) {
             http_response_code(400);
+            error_log("incorrect ");
             echo json_encode(['status' => 'failed', "error" => "Incorrect weight"]);
             exit;
         }
@@ -104,36 +107,41 @@ class UserController
             echo json_encode(['message' => 'No file uploaded.']);
         }
 
-        $loader = new ContentLoader();
-        $avatar_path = $loader->uploadImage($avatar, 'avatar');
+        $avatar_path = ContentLoader::uploadImage($avatar, 'avatar');
 
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $newUser = new User(
-            null,
-            $surname,
-            $firstname,
-            $gender,
-            $age,
-            $height,
-            $weight,
-            $is_trainer,
-            $phone,
-            $hashedPassword,
-            $avatar_path
-        );
+        try {
+            $newUser = new User(
+                null,
+                $surname,
+                $firstname,
+                $gender,
+                $age,
+                $height,
+                $weight,
+                $is_trainer,
+                $phone,
+                $hashedPassword,
+                $avatar_path
+            );
 
-        $newUserUuid = $this->userRepo->addUser($newUser);
+            $newUserUuid = $this->userRepo->addUser($newUser);
 
-        if ($newUserUuid !== null) {
-            $response = [
-                'status' => 'success',
-                'message' => 'POST request received',
-                'user_uuid' => $newUserUuid
-            ];
-            echo json_encode($response);
-        } else {
+            if ($newUserUuid !== null) {
+                $response = [
+                    'status' => 'success',
+                    'message' => 'POST request received',
+                    'user_uuid' => $newUserUuid
+                ];
+                echo json_encode($response);
+            } else {
+                http_response_code(400);
+                echo json_encode(['status' => 'error', 'message' => 'User not register']);
+            }
+        } catch (Exception $e) {
             http_response_code(400);
+            error_log($e);
             echo json_encode(['status' => 'error', 'message' => 'User not register']);
         }
     }
@@ -152,7 +160,7 @@ class UserController
                     'user_height' => $user->getUserHeight(),
                     'user_weight' => $user->getUserWeight(),
                     'user_phone' => $user->getUserPhone(),
-                    'user_avatar_path' => $user->getUserAvatarPath(),
+                    'user_avatar_path' => 'storage/' .$user->getUserAvatarPath(),
                     'is_trainer' => $user->getUserIsTrainer() === true ? '✔' : '✖',
                 ];
             }, $users);
