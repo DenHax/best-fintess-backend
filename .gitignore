@@ -22,6 +22,8 @@
 
 /src/utils/*
 /src/storage/*
+/src/phinx.php
+/src/db/
 /src/Config/core.php
 /src/Config/database.php
 /vendors/*
@@ -31,5 +33,6 @@
 .env_*
 config.ini
 test.json
+
 
 /.direnv
