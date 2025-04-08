@@ -1,0 +1,5 @@
+DROP INDEX PLAN_PK_INDEX;
+
+DROP TABLE Client_Plan;
+
+DROP TABLE Plan;

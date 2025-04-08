@@ -25,6 +25,7 @@
           buildInputs = with pkgs; [
             php83
             php83Packages.composer
+            postgresql_jit
           ];
 
         };

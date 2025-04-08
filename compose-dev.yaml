@@ -62,13 +62,20 @@ services:
 
   frontend:
     container_name: fit-front
-    image: denhax/fitness-web-client:1.0
+    build:
+      context: ../fitness-client
+      dockerfile: Dockerfile
+      args:
+        USER_ID: 1000
+        GROUP_ID: 1000
     ports:
       - "5178:5178"
     volumes:
       - ../fitness-client:/home/node/app
       - /home/node/app/node_modules
     environment:
+      - USER_ID=1000
+      - GROUP_ID=1000
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
     networks:
