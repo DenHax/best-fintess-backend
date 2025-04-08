@@ -12,7 +12,7 @@ class ContentLoader
     public static function uploadImage($avatar, $uploadType): ?string
     {
         $storagePath = '../storage';
-        $uploadPath = './upload';
+        $uploadPath = 'upload';
         if (!empty($avatar)) {
             $fileTmpPath = $_FILES[$uploadType]['tmp_name'];
             $fileName = $_FILES[$uploadType]['name'];
@@ -25,7 +25,7 @@ class ContentLoader
 
             if (in_array($fileExtension, $allowedfileExtensions) && in_array($fileType, $allowedMimeTypes)) {
                 $newFileName = uniqid() . '.' . $fileExtension;
-                $movePath = $storagePath . $uploadPath . '/' . $uploadType . '/' . $newFileName;
+                $movePath = $storagePath . "/" . $uploadPath . '/' . $uploadType . '/' . $newFileName;
 
                 if (move_uploaded_file($fileTmpPath, $movePath)) {
                     $path = $uploadPath . '/' . $uploadType . '/' . $newFileName;
