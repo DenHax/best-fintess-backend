@@ -28,6 +28,7 @@
 /src/Config/database.php
 /vendors/*
 
+.dump
 .env
 .env-*
 .env_*
